@@ -30,7 +30,8 @@ func GetURLsFromHTML(html string, baseURL string) []string {
 
 		if href[0] == '/' || href[0] == '.' {
 			result, _ := url.JoinPath(baseURL, href)
-			result = removeTrailingSlash(result)
+			result, _ = url.PathUnescape(removeTrailingSlash(result))
+
 			urls = append(urls, result)
 		}
 

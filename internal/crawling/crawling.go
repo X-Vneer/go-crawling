@@ -9,10 +9,9 @@ import (
 
 func Crawling(baseURL string, currentURL string, crawledPages *map[string]uint8) {
 
-	fmt.Printf("Crawling: %s", currentURL)
+	fmt.Printf("\nCrawling: %s\n", currentURL)
 
 	url := tools.NormalizeURL(currentURL)
-	fmt.Println(url)
 
 	if len(url) == 0 {
 		log.Warn("Empty url")
