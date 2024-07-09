@@ -23,7 +23,7 @@ func TestNormalizeURL(t *testing.T) {
 	}
 
 	for index, c := range cases {
-		normalizedURL, _ := tools.NormalizeURL(c.input)
+		normalizedURL := tools.NormalizeURL(c.input)
 		fmt.Printf("testing NormalizeURL case #%-10v %v  \n\n", strconv.Itoa(index)+":", (normalizedURL == c.expected))
 
 		if normalizedURL != c.expected {

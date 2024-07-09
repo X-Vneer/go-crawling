@@ -1,23 +1,20 @@
 package tools
 
 import (
-	"errors"
 	URL "net/url"
 	"strings"
 
 	log "github.com/sirupsen/logrus"
 )
 
-func NormalizeURL(url string) (string, error) {
+func NormalizeURL(url string) string {
 
 	url = strings.ToLower(strings.TrimSpace(url))
 
 	if len(url) == 0 {
 		log.Error("Empty url")
 
-		err := errors.New("empty url")
-
-		return "", err
+		return ""
 	}
 
 	if url[len(url)-1] == '/' {
@@ -28,9 +25,9 @@ func NormalizeURL(url string) (string, error) {
 	if err != nil {
 
 		log.Error("Could not parse url")
-		return "", err
+		return ""
 
 	}
 
-	return parsedURL.Host + parsedURL.Path, nil
+	return parsedURL.Host + parsedURL.Path
 }
