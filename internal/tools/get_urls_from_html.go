@@ -24,6 +24,10 @@ func GetURLsFromHTML(html string, baseURL string) []string {
 			return
 		}
 
+		if len(href) == 0 {
+			return
+		}
+
 		if href[0] == '/' || href[0] == '.' {
 			result, _ := url.JoinPath(baseURL, href)
 			result = removeTrailingSlash(result)
