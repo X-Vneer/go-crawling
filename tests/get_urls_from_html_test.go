@@ -1,9 +1,11 @@
-package tools
+package tests
 
 import (
 	"fmt"
 	"reflect"
 	"testing"
+
+	"github.com/x-vneer/crawling/internal/tools"
 )
 
 func TestGetURLsFromHTML(t *testing.T) {
@@ -15,6 +17,7 @@ func TestGetURLsFromHTML(t *testing.T) {
 		{"<a href=\"https://example1.com/\">Example</a>", []string{}},
 		{"<a href=\"#something\">Example</a>", []string{}},
 		{"<a href=\"/path/path2/\">Example</a>", []string{"https://example.com/path/path2"}},
+		{"<a href=\"/path/paTH2/\">Example</a>", []string{"https://example.com/path/paTH2"}},
 		{"<a href=\"https://example.com/path/path2/\">Example</a>", []string{"https://example.com/path/path2"}},
 		{"<a href=\"https://example1.com/\">Example</a><a href=\"/path/path2/\">Example</a>", []string{"https://example.com/path/path2"}},
 		{"<a href=\"/path/path2/\">Example</a><a href=\"https://example.com/\">Example</a>", []string{"https://example.com/path/path2", "https://example.com"}},
@@ -22,7 +25,7 @@ func TestGetURLsFromHTML(t *testing.T) {
 	}
 
 	for index, c := range cases {
-		got := GetURLsFromHTML(c.input, "https://example.com/")
+		got := tools.GetURLsFromHTML(c.input, "https://example.com/")
 		fmt.Printf("testing GetURLsFromHTML case #%d: %v  \n\n", index, reflect.DeepEqual(got, c.expected) || len(got) == len(c.expected) && len(got) == 0)
 		if len(got) == len(c.expected) && len(got) == 0 {
 			continue
