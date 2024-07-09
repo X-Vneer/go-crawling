@@ -1,6 +1,8 @@
 package tools
 
 import (
+	"fmt"
+	"strconv"
 	"testing"
 )
 
@@ -24,11 +26,14 @@ func TestNormalizeURL(t *testing.T) {
 		{"https://example.com/path/path2/path3", "example.com/path/path2/path3"},
 	}
 
-	for _, c := range cases {
+	for index, c := range cases {
 		normalizedURL, err := NormalizeURL(c.input)
+		fmt.Printf("testing NormalizeURL case #%-10v %v  \n\n", strconv.Itoa(index)+":", (normalizedURL == c.expected))
+
 		if err != nil {
 			t.Errorf("NormalizeURL(%s) returned error: %v", c.input, err)
 		}
+
 		if normalizedURL != c.expected {
 			t.Errorf("NormalizeURL(%s) = %s, expected %s", c.input, normalizedURL, c.expected)
 		}

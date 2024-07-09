@@ -21,9 +21,9 @@ func TestGetURLsFromHTML(t *testing.T) {
 		{"<a href=\"/path/path2/\">Example</a><a href=\"/path/path3/\">Example</a>", []string{"https://example.com/path/path2", "https://example.com/path/path3"}},
 	}
 
-	for _, c := range cases {
+	for index, c := range cases {
 		got := GetURLsFromHTML(c.input, "https://example.com/")
-		fmt.Println("is equal:", reflect.DeepEqual(got, c.expected), got, c.expected)
+		fmt.Printf("testing GetURLsFromHTML case #%d: %v  \n\n", index, reflect.DeepEqual(got, c.expected) || len(got) == len(c.expected) && len(got) == 0)
 		if len(got) == len(c.expected) && len(got) == 0 {
 			continue
 		}
