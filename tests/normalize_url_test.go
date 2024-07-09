@@ -19,6 +19,7 @@ func TestNormalizeURL(t *testing.T) {
 		{"http://example.com/path", "example.com/path"},
 		{"http://example.com/path/", "example.com/path"},
 		{"https://example.com/path?search=query", "example.com/path"},
+		{"https://mabet.com.sa/ar/units/%3Fq=camps&type=4", "mabet.com.sa/ar/units"},
 		{"", ""},
 	}
 
