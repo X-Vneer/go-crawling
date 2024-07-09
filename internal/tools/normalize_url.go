@@ -13,20 +13,20 @@ func NormalizeURL(url string) string {
 
 	if len(url) == 0 {
 		log.Error("Empty url")
-
 		return ""
-	}
-
-	if url[len(url)-1] == '/' {
-		url = url[:len(url)-1]
 	}
 
 	parsedURL, err := URL.Parse(url)
-	if err != nil {
 
+	if err != nil {
 		log.Error("Could not parse url")
 		return ""
+	}
 
+	parsedURL.Path = strings.Split(parsedURL.Path, "?")[0]
+
+	if len(parsedURL.Path) > 0 && parsedURL.Path[len(parsedURL.Path)-1] == '/' {
+		parsedURL.Path = parsedURL.Path[:len(parsedURL.Path)-1]
 	}
 
 	return parsedURL.Host + parsedURL.Path
