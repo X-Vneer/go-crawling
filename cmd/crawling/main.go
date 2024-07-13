@@ -29,6 +29,17 @@ func main() {
 	}
 
 	var crawledPages map[string]uint8 = make(map[string]uint8)
-	crawling.Crawling("https://"+parsedURL.Host, url, &crawledPages)
+	crawling.Crawling(parsedURL.Scheme+"://"+parsedURL.Host, url, &crawledPages)
+
+	if err := os.MkdirAll("results", 0755); err != nil {
+		log.Fatal("failed to create directory")
+	}
+
+	result := ""
+	for k, v := range crawledPages {
+		result += fmt.Sprintf("%-10v %s\n", fmt.Sprintf("%d:", v), k)
+	}
+
+	os.WriteFile("results/"+strings.Replace(parsedURL.Host, ".", "_", -1)+".txt", []byte(result), 0644)
 
 }
